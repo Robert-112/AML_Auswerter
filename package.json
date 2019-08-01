@@ -1,0 +1,23 @@
+{
+  "name": "aml-decoder",
+  "version": "1.5.0",
+  "description": "Script zur Anfrage von AML-Daten",
+  "main": "app.js",
+  "dependencies": {
+    "console-stamp": "^0.2.9",
+    "dotenv": "^8.0.0",
+    "hex2ascii": "^0.0.3",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "aml",
+    "notruf",
+    "112"
+  ],
+  "author": "Robert Richter",
+  "license": "CC-BY-4.0"
+}
