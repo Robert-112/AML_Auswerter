@@ -1,5 +1,5 @@
 <?php
-    $curl_url = "https://aml-daten.irgendwas.com:1234/hilfe/?"; // URL der AML-Adresse
+    $curl_url = "https://aml-daten.irgendwas.com:1234/hilfe/daten?"; // URL der AML-Adresse
     $curl_proxy = "192.168.1.80:80"; // IP:Port des Proxy-Servers, sofern vorhanden
     $curl_port = 443; // Port des AML-Servers
     $curl_sslcert = "/var/notrufdaten-certifikat.pem"; // Speicherort des notwendigen Zertifkats
