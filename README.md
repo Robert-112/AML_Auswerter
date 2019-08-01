@@ -8,7 +8,7 @@ Die Nutzung erfolgt ohne Zwang und auf eigene Gefahr.**
 
 ## Funktionsumfang
  - Anzeige von AML-Daten für eine Telefonnummer über eine Webseite (Daten + Karte)
- - Automatisches abrufen der Daten und Weitergabe an z.B. ein weiteres System
+ - Automatisches Abrufen der Daten und Weitergabe an andere Systeme
 
 ## Installation & Konfiguration
 ### Vorbereitung & Installation
