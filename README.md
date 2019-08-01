@@ -3,7 +3,7 @@
 ## Beschreibung
 Mit dieser Anwendung können AML-Daten ([Advanced Mobile Location)](https://de.wikipedia.org/wiki/Advanced_Mobile_Location) angefragt und verarbeitet werden. Zur Abfrage der Daten sind Zugangsdaten notwendig, die nur an 112-Leitstellen vergeben werden.
 
-**Für die Funktionalität der Software wird keinerlei Haftung übernommen. Auch für Schäden an Systemen dritter wird keinerlei Haftung übernommen.
+**Für die Funktionalität der Software wird keinerlei Haftung übernommen. Auch für Schäden an Systemen Dritter wird keinerlei Haftung übernommen.
 Die Nutzung erfolgt ohne Zwang und auf eigene Gefahr.**
 
 ## Funktionsumfang
