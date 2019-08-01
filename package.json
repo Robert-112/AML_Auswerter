@@ -5,7 +5,6 @@
   "main": "app.js",
   "dependencies": {
     "console-stamp": "^0.2.9",
-    "dotenv": "^8.0.0",
     "hex2ascii": "^0.0.3",
     "request": "^2.88.0"
   },
