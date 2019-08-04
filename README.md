@@ -25,6 +25,22 @@ Die Nutzung erfolgt ohne Zwang und auf eigene Gefahr.**
  8. `npm start` (startet die Anwendung)
  9. *optional:* forever-service (https://www.npmjs.com/package/forever-service) installieren und app.js als Service einbinden
 
+## Beispiel der Webseite (PHP-Skript)
+(folgt)
+
+## Beispiel des automatischen Abrufs (NodeJS)
+```
+[2019-08-02 17:00:10.678] [INFO]   UDP Server auf 0.0.0.0:1554 gestartet. PID: 12569
+[2019-08-02 17:03:18.169] [LOG]    Notruf auf Kanal 4 erkannt. Rufnummer: 015123456789
+[2019-08-02 17:03:19.880] [LOG]    Frage AML-Daten für Rufnummer 015123456789 nach 1 Sekunden ab.
+[2019-08-02 17:03:20.433] [LOG]    Keine AML-Daten zur Nummer 015123456789 verfügbar.
+[2019-08-02 17:03:24.895] [LOG]    Frage AML-Daten für Rufnummer 015123456789 nach 6 Sekunden ab.
+[2019-08-02 17:03:25.303] [LOG]    AML-Daten zur Nummer 015123456789 vorhanden, übermittle Daten an das Einsatzleitsystem.
+[2019-08-02 17:03:25.304] [LOG]    Position: 51.733152, 14.337873 (wifi)
+[2019-08-02 17:03:25.304] [LOG]    Genauigkeit: 17.489
+[2019-08-02 17:03:25.304] [LOG]    Geschwindigkeit: 5 m/s - Richtung: 192 Grad
+[2019-08-02 17:03:25.304] [LOG]    ISSI: 1234567
+```
 
 # Lizenz
 #### [\[Creative Commons Attribution Share Alike 4.0 International\]](https://github.com/Robert-112/Wachalarm-IP-Web/blob/master/LICENSE.md)

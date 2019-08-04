@@ -67,12 +67,13 @@ setInterval(function () {
     for (const phone of phones) {
         if (typeof phone_data[phone] !== 'undefined') {
             var time_passed = Math.round(Math.floor((new Date() - phone_data[phone].zeitstempel) / 1000))
-            // AML-Daten nach 6, 11, 21 und 35 Sekunden abrufen
+            // AML-Daten nach 1, 6, 11, 21 und 45 Sekunden abrufen
             if (
+                time_passed == 1 ||
                 time_passed == 6 ||
                 time_passed == 11 ||
                 time_passed == 21 ||
-                time_passed == 35
+                time_passed == 45
             ) {
                 console.log('Frage AML-Daten für Rufnummer ' + phone + ' nach ' + time_passed + ' Sekunden ab.');
                 // Datei zur Überwachung schreiben
@@ -89,7 +90,7 @@ setInterval(function () {
                         user: app_cfg.aml_auth_user,
                         pass: app_cfg.aml_auth_pass
                     },
-                    proxy: app_cfg.porxy,
+                    proxy: app_cfg.proxy,
                     cert: fs.readFileSync(app_cfg.aml_cert, 'utf8'),
                     key: fs.readFileSync(app_cfg.aml_key, 'utf8'),
                     passphrase: app_cfg.aml_passphrase,
@@ -136,7 +137,11 @@ setInterval(function () {
                                 usable_issi.push(usable_issi.shift());
                             };
                             // AML-Daten erhalten
-                            console.log('AML-Daten zur Nummer ' + phone + ' vorhanden, übermittle Daten an das Einsatzleitsystem. (' + phone_data[phone].aml[0].location_latitude + ', ' + phone_data[phone].aml[0].location_longitude + ', ' + phone_data[phone].issi + ')');
+                            console.log('AML-Daten zur Nummer ' + phone + ' vorhanden, übermittle Daten an das Einsatzleitsystem.');
+                            console.log('Position: ' + phone_data[phone].aml[0].location_latitude + ', ' + phone_data[phone].aml[0].location_longitude + ' (' + phone_data[phone].aml[0].location_source + ')');
+                            console.log('Genauigkeit: ' + phone_data[phone].aml[0].location_accuracy);
+                            console.log('Geschwindigkeit: ' + phone_data[phone].aml[0].location_speed + ' m/s - Richtung: ' + phone_data[phone].aml[0].location_bearing +' Grad');
+                            console.log('ISSI: ' + phone_data[phone].issi);                     
                             var xml_fms_status = app_cfg.status_fms_1[0] + phone_data[phone].issi + app_cfg.status_fms_1[1];
                             var xml_geo_position = app_cfg.status_position[0]  + phone_data[phone].issi + app_cfg.status_position[1] + phone_data[phone].aml[0].location_longitude + app_cfg.status_position[2] + phone_data[phone].aml[0].location_latitude + app_cfg.status_position[3];
                             // Status 1 für ISSI senden
@@ -190,9 +195,9 @@ setInterval(function () {
                     };
                 });
             };
-            // nach 40 Sekunden ohne Daten, oder nach 300 Sekunden, alles löschen und Status 2 für ISSI
+            // nach 50 Sekunden ohne Daten, oder nach 300 Sekunden, alles löschen und Status 2 für ISSI
             if (
-                (time_passed > 40 && phone_data[phone].aml[0].status !== 'ok') ||
+                (time_passed > 50 && phone_data[phone].aml[0].status !== 'ok') ||
                 time_passed > 300
             ) {
                 console.log('Lösche Daten für Telefonnummer ' + phone + ' nach ' + time_passed + ' Sekunden!');
