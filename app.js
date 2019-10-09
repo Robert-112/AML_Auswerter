@@ -30,7 +30,8 @@ var phone_data = {};
 udp_server.on('message', function (message, remote) {
     // empfangene Daten in hex umwandeln
     var data_hex = Buffer.from(message).toString('hex');
-    // wenn x30 und x05 im Paket vorhanden, dann ist es eine Anruf-Signalisierung
+	console.log('DEBUG (UDP-Daten): ' + data_hex);
+    // wenn x30 und x05 im Paket vorhanden, dann ist es eine Anruf-Signalisierung direkt per Multicast
     if (data_hex.substr(16, 2) == '30' && data_hex.substr(18, 2) == '05') {
         // variablen Teil des Paketes auswerten
         var var_hex = data_hex.substr(144, data_hex.length);
@@ -54,10 +55,40 @@ udp_server.on('message', function (message, remote) {
                 var tmp_obj = {};
                 tmp_obj.zeitstempel = Date.now();
                 phone_data[telefon_nr] = tmp_obj;
-                console.log('Notruf auf Kanal ' + kanal_nr + ' erkannt. Rufnummer: ' + telefon_nr);
+                console.log('Notruf-Anwahl auf Kanal ' + kanal_nr + ' erkannt. Rufnummer: ' + telefon_nr);
             };
         };
-    };
+    } else {
+		// pruefen ob es eine Signalisierung per RAU-Signal ist, sonst verwerfen
+		if (data_hex.substr(16, 2) == '10' && data_hex.substr(18, 2) == '05') {
+			console.log('DEBUG (Anrufsignal): ' + data_hex);
+			// variablen Teil des Paketes auswerten
+			var var_hex = data_hex.substr(134, data_hex.length);
+			// Kanalnummer ermitteln
+			var kanal_nr = hex2ascii(var_hex.substr(0, var_hex.indexOf('0d')));
+			console.log('DEBUG (Kanal_Nr): ' + kanal_nr);               
+			// Telefonnummer ermitteln
+			var telefon_nr = var_hex.substr(var_hex.indexOf('0d') + 2, var_hex.length);
+			telefon_nr = telefon_nr.substr(0, telefon_nr.indexOf('0a'));
+			telefon_nr = hex2ascii(telefon_nr); 
+			console.log('DEBUG (Telefonnummer): ' + telefon_nr);
+			// erste 0 von Telefonnummer entfernen
+			telefon_nr = telefon_nr.toString().substr(1);
+			// Daten nur Speichern wenn eine Kanalnummer im Bereich des Notrufes liegt, und es keine Festnetznummer mit 03 am Anfang ist
+			if (app_cfg.kanalnummer_min < kanal_nr && kanal_nr < app_cfg.kanalnummer_max && telefon_nr.substr(0, 2) !== app_cfg.vorwahlfilter) {
+				// falls die Telefonnummer schon vorhanden ist (erneuerter Anruf), Zeit dort neu setzen
+				if (telefon_nr in phone_data) {
+					phone_data[telefon_nr].zeitstempel = Date.now();
+				} else {
+					// Telefondaten in phone_data mit Zeitstempel schreiben
+					var tmp_obj = {};
+					tmp_obj.zeitstempel = Date.now();
+					phone_data[telefon_nr] = tmp_obj;
+					console.log('Notruf-Annahme auf Kanal ' + kanal_nr + ' erkannt. Rufnummer: ' + telefon_nr);
+				};
+			};
+		}; 
+	};
 });
 
 // jede Sekunde neue/alte Daten auswerten
