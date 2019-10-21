@@ -4,8 +4,8 @@ Aktualisiert am 21.10.2019
 ## Beschreibung
 Mit dieser Anwendung können AML-Daten ([Advanced Mobile Location)](https://de.wikipedia.org/wiki/Advanced_Mobile_Location) angefragt und verarbeitet werden. Zur Abfrage der Daten sind Zugangsdaten notwendig, die nur an 112-Leitstellen vergeben werden.
 
-**Für die Funktionalität der Software wird keinerlei Haftung übernommen. Auch für Schäden an Systemen Dritter wird keinerlei Haftung übernommen.
-Die Nutzung erfolgt ohne Zwang und auf eigene Gefahr.**
+**_Für die Funktionalität der Software wird keinerlei Haftung übernommen. Auch für Schäden an Systemen Dritter wird keinerlei Haftung übernommen.
+Die Nutzung erfolgt ohne Zwang und auf eigene Gefahr._**
 
 ## Funktionsumfang
 Dieses Repository besteht aus zwei Teilen:
@@ -16,7 +16,7 @@ Das Ergebnis wird in einer Karte im Browser dargestellt.
 ![AML über Webseite](https://user-images.githubusercontent.com/19272095/67205616-5ee17a00-f410-11e9-8b5c-5aefdd651def.png)
 
 ### B) System zur automatischen Abfrage der AML-Daten
-Das automatische Abrufen der Daten erfolgt über eine Auswertung der Notrufnummer beim Klingeln und ist optional (also zusätzliche zur Variante A). Danach erfolgt eine Weitergabe der AML-Positionsdaten (soforn vorhanden) an andere Systeme (z.B. das Kartenmodul des Einsatzleitsystems). Diese Version wurde bisher nur im Land Brandenburg erfolgreich umgesetzt.
+Das automatische Abrufen der Daten erfolgt über eine Auswertung der Notrufnummer beim Klingeln und ist optional (also zusätzlich zur Variante A, diese Variante muss nicht genutzt werden). Danach erfolgt eine Weitergabe der AML-Positionsdaten (soforn vorhanden) an andere Systeme (z.B. das Kartenmodul des Einsatzleitsystems). Diese Version wurde bisher nur im Land Brandenburg erfolgreich umgesetzt.
 ![autmoatische Darstellung im Drittsystem](https://user-images.githubusercontent.com/19272095/67206072-3c9c2c00-f411-11e9-8410-b60b3bd8cd32.png)
 
 ## Installation & Konfiguration
@@ -42,6 +42,19 @@ Das automatische Abrufen der Daten erfolgt über eine Auswertung der Notrufnumme
  - `npm install` (lädt und installiert alle Pakete)
  - `npm start` (startet die Anwendung)
  - *optional:* forever-service (https://www.npmjs.com/package/forever-service) installieren und app.js als Service einbinden
+
+## Häufige Fragen
+
+### Wie kann ich testen ob mein AML-Zugang funktioniert
+Auf dem Server den Testbefehl der AML-Spezifikation ausführen (siehe Dokument der Leitstelle Freiburg -> Curl-Skript).
+
+### Wie kann ich das AML-Zertikat in ein pem-Zertifikat umwandeln?
+```$ sudo openssl pkcs12 -in zertifikatsdatei_alt.p12 -out zertifikatsdatei_neu.pem -nodes```
+
+### Die PHP-Webseite zeigt nichts an, wass kann ich tun?
+Zunächst sollten Sie die PHP-Log-Dateien prüfen, bzw. aktivieren (siehe: ([Where are the apache and php log files?]https://askubuntu.com/questions/14763/where-are-the-apache-and-php-log-files).
+Außerdem sollten Sie prüfen, ob das Zertifkat durch den Webserver lesbar ist. Testweise kann die Berechtigung für das Zertifkat angepasst werden:
+```$ sudo chmod 777 zertifkat.pem```
 
 ## Beispiel-Konfiguration der Webseite (PHP-Script)
 (folgt)
