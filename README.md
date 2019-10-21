@@ -52,8 +52,9 @@ Auf dem Server den Testbefehl der AML-Spezifikation ausführen (siehe Dokument d
 ```$ sudo openssl pkcs12 -in zertifikatsdatei_alt.p12 -out zertifikatsdatei_neu.pem -nodes```
 
 ### Die PHP-Webseite zeigt nichts an, wass kann ich tun?
-Zunächst sollten Sie die PHP-Log-Dateien prüfen, bzw. aktivieren (siehe: ([Where are the apache and php log files?]https://askubuntu.com/questions/14763/where-are-the-apache-and-php-log-files)).
+Zunächst sollten Sie die PHP-Log-Dateien prüfen, bzw. aktivieren (siehe: ( [Where are the apache and php log files?]https://askubuntu.com/questions/14763/where-are-the-apache-and-php-log-files) ).
 Außerdem sollten Sie prüfen, ob das Zertifkat durch den Webserver lesbar ist. Testweise kann die Berechtigung für das Zertifkat angepasst werden:
+
 ```$ sudo chmod 777 zertifkat.pem```
 
 ### Wie gebe ich Telefonnummer in der Webseite ein?
@@ -61,13 +62,21 @@ Dies erfolgt aktuell über einen Paramater beim aufrufen der Webseite http://ip-
 
 ## Beispiel-Konfiguration der Webseite (PHP-Script -> config.php)
 ```$curl_url = "https://aml-daten.irgendwas.com:1234/hilfe/daten?telefon=";``` // URL der AML-Adresse
+
 ```$curl_proxy = "192.168.1.80:80";``` // IP:Port des Proxy-Servers, sofern vorhanden, sonst einfach leer lassen
+
 ```$curl_port = 1234;``` // Port des AML-Servers
+
 ```$curl_sslcert = "/var/notrufdaten-certifikat.pem";``` // Speicherort des notwendigen Zertifkats
+
 ```$curl_sslkey = "/var/notrufdaten-ssl.pem";``` // Speicherort des notwendigen Zertifkats
+
 ```$curl_sslkeypasswd = "1234567890";``` // SSL-Key
+
 ```$curl_cainfo = "/var/ca-certificates.crt";``` // lokales CA-Zertifikat des Linux-Systems
+
 ```$curl_userpwd = "benutzer:passwort";``` // Benutzer und Passwort für mit : getrennt
+
 ```$tile_layer = "https://a.tile.openstreetmap.de/${z}/${x}/${y}.png";``` // Eigener Tile-Server für Kartendarstellung
 
 ## Beispiel des automatischen Abrufs (NodeJS)
