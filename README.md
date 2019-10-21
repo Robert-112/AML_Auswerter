@@ -23,21 +23,21 @@ Das automatische Abrufen der Daten erfolgt über eine Auswertung der Notrufnumme
  1. Installation eines Linux-Servers (Debian, Ubuntu etc.)
  2. Schaffen der Netz-Infrastruktur (IP-Verbindung, ggf. DMZ und Proxy)
  3. Installation der notwendigen Pakete
- - für Variante A (PHP-Webseite):
+ - für *Variante A* (PHP-Webseite):
     Webserver installieren, z.B. [Apache](https://httpd.apache.org/) oder Vergleichbar (z.B. Ngnix), prüfen ob notwendige Pakte zum Ausführen von Curl installiert sind (Curl für das Linux-System und für den Web-Server)
- - für Variante B (automatisches Abfragen, wird nicht zwingend benötigt)
+ - für _Variante B_ (automatisches Abfragen, wird nicht zwingend benötigt)
     Installation von [Node.js](https://nodejs.org/) (Version 8 oder höher)
  5. Download des Quellcodes ([Master](https://github.com/Robert-112/AML_Auswerter/archive/master.zip))
  6. Entpacken der *.zip-Datei
  7. Die Konfigurations-Dateien anpassen und Datein verschieben
- - für Variante A (PHP-Webseite):
+ - *für Variante A (PHP-Webseite)*:
     config.php anpassen; aml.php und config/config.php in das Verzeichnis des Webservers kopieren
- - für Variante B (automatisches Abfragen)
+ - _für Variante B (automatisches Abfragen)_:
     app_cfg.js anpassen
  8. Anwendung starten:
-  - für Variante A (PHP-Webseite):
+  - *für Variante A (PHP-Webseite)*:
     Webserver starten und nach http://ip-das-servers:port/verzeichnis/aml.php?telefon= navigieren
- - für Variante B (automatisches Abfragen)
+  - _für Variante B (automatisches Abfragen)_:
     Komandozeile öffnen (Terminal, SSH etc.) und in das Verzeichnis mit der Datei app.js wechseln. Dort folgende Befehle eingeben:
  - `npm install` (lädt und installiert alle Pakete)
  - `npm start` (startet die Anwendung)
@@ -52,7 +52,7 @@ Auf dem Server den Testbefehl der AML-Spezifikation ausführen (siehe Dokument d
 ```$ sudo openssl pkcs12 -in zertifikatsdatei_alt.p12 -out zertifikatsdatei_neu.pem -nodes```
 
 ### Die PHP-Webseite zeigt nichts an, wass kann ich tun?
-Zunächst sollten Sie die PHP-Log-Dateien prüfen, bzw. aktivieren (siehe: ( [Where are the apache and php log files?]https://askubuntu.com/questions/14763/where-are-the-apache-and-php-log-files) ).
+Zunächst sollten Sie die PHP-Log-Dateien prüfen, bzw. aktivieren (siehe: [Where are the apache and php log files?](https://askubuntu.com/questions/14763/where-are-the-apache-and-php-log-files)).
 Außerdem sollten Sie prüfen, ob das Zertifkat durch den Webserver lesbar ist. Testweise kann die Berechtigung für das Zertifkat angepasst werden:
 
 ```$ sudo chmod 777 zertifkat.pem```
