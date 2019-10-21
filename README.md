@@ -16,26 +16,27 @@ Das Ergebnis wird in einer Karte im Browser dargestellt.
 ![AML über Webseite](https://user-images.githubusercontent.com/19272095/67205616-5ee17a00-f410-11e9-8b5c-5aefdd651def.png)
 
 ### B) System zur automatischen Abfrage der AML-Daten
-Das automatische Abrufen der Daten erfolgt über eine Auswertung der Notrufnummer beim Klingeln und ist optional (also zusätzlich zur Variante A, diese Variante muss nicht genutzt werden). Danach erfolgt eine Weitergabe der AML-Positionsdaten (soforn vorhanden) an andere Systeme (z.B. das Kartenmodul des Einsatzleitsystems). Diese Version wurde bisher nur im Land Brandenburg erfolgreich umgesetzt.
+Das automatische Abrufen der Daten erfolgt über eine Auswertung der Notrufnummer beim Klingeln und ist optional (also zusätzlich zur Variante A, die Variante B muss nicht genutzt werden). Danach erfolgt eine Weitergabe der AML-Positionsdaten (soforn vorhanden) an andere Systeme (z.B. das Kartenmodul des Einsatzleitsystems). Diese Version wurde bisher nur im Land Brandenburg erfolgreich umgesetzt.
 ![autmoatische Darstellung im Drittsystem](https://user-images.githubusercontent.com/19272095/67206072-3c9c2c00-f411-11e9-8410-b60b3bd8cd32.png)
 
 ## Installation & Konfiguration
  1. Installation eines Linux-Servers (Debian, Ubuntu etc.)
+    (Windows ist theoretisch auch möglich, wurde aber nie getestet)
  2. Schaffen der Netz-Infrastruktur (IP-Verbindung, ggf. DMZ und Proxy)
  3. Installation der notwendigen Pakete
- - für *Variante A* (PHP-Webseite):
-    Webserver installieren, z.B. [Apache](https://httpd.apache.org/) oder Vergleichbar (z.B. Ngnix), prüfen ob notwendige Pakte zum Ausführen von Curl installiert sind (Curl für das Linux-System und für den Web-Server)
+ - für **Variante A** (PHP-Webseite):
+    Webserver installieren, z.B. [Apache](https://httpd.apache.org/) oder vergleichbar (z.B. Ngnix), prüfen ob notwendige Pakte zum Ausführen von Curl installiert sind (Curl für das Linux-System und für den Web-Server)
  - für _Variante B_ (automatisches Abfragen, wird nicht zwingend benötigt)
     Installation von [Node.js](https://nodejs.org/) (Version 8 oder höher)
  5. Download des Quellcodes ([Master](https://github.com/Robert-112/AML_Auswerter/archive/master.zip))
  6. Entpacken der *.zip-Datei
  7. Die Konfigurations-Dateien anpassen und Datein verschieben
- - *für Variante A (PHP-Webseite)*:
+ - **für Variante A (PHP-Webseite)**:
     config.php anpassen; aml.php und config/config.php in das Verzeichnis des Webservers kopieren
  - _für Variante B (automatisches Abfragen)_:
     app_cfg.js anpassen
  8. Anwendung starten:
-  - *für Variante A (PHP-Webseite)*:
+  - **für Variante A (PHP-Webseite)**:
     Webserver starten und nach http://ip-das-servers:port/verzeichnis/aml.php?telefon= navigieren
   - _für Variante B (automatisches Abfragen)_:
     Komandozeile öffnen (Terminal, SSH etc.) und in das Verzeichnis mit der Datei app.js wechseln. Dort folgende Befehle eingeben:
@@ -43,7 +44,7 @@ Das automatische Abrufen der Daten erfolgt über eine Auswertung der Notrufnumme
  - `npm start` (startet die Anwendung)
  - *optional:* forever-service (https://www.npmjs.com/package/forever-service) installieren und app.js als Service einbinden
 
-## Häufige Fragen
+## Häufige Fragen (FAQ)
 
 ### Wie kann ich testen ob mein AML-Zugang funktioniert
 Auf dem Server den Testbefehl der AML-Spezifikation ausführen (siehe Dokument der Leitstelle Freiburg -> Curl-Skript).
@@ -57,17 +58,17 @@ Außerdem sollten Sie prüfen, ob das Zertifkat durch den Webserver lesbar ist. 
 
 ```$ sudo chmod 777 zertifkat.pem```
 
-### Wie gebe ich Telefonnummer in der Webseite ein?
+### Wie gebe ich eine Telefonnummer in der Webseite ein?
 Dies erfolgt aktuell über einen Paramater beim aufrufen der Webseite http://ip-das-servers:port/verzeichnis/aml.php?telefon=0123456789
 
 ## Beispiel-Konfiguration der Webseite (PHP-Script -> config.php)
-```$curl_url = "https://aml-daten.irgendwas.com:1234/hilfe/daten?telefon=";``` // URL der AML-Adresse
+```$curl_url = "https://aml-daten.irgendwas.com:1234/hilfe/daten?telefon=";``` // URL der AML-Adresse inkl. paramter zur Abfrage (siehe Spezifikation von Freiburg)
 
 ```$curl_proxy = "192.168.1.80:80";``` // IP:Port des Proxy-Servers, sofern vorhanden, sonst einfach leer lassen
 
-```$curl_port = 1234;``` // Port des AML-Servers
+```$curl_port = 1234;``` // Port des AML-Servers (siehe Port in der o.g. URL)
 
-```$curl_sslcert = "/var/notrufdaten-certifikat.pem";``` // Speicherort des notwendigen Zertifkats
+```$curl_sslcert = "/var/notrufdaten-zertifikat.pem";``` // Speicherort des notwendigen Zertifkats
 
 ```$curl_sslkey = "/var/notrufdaten-ssl.pem";``` // Speicherort des notwendigen Zertifkats
 
