@@ -49,8 +49,9 @@ Das automatische Abrufen der Daten erfolgt über eine Auswertung der Notrufnumme
 ### Wie kann ich testen ob mein AML-Zugang funktioniert
 Auf dem Server den Testbefehl der AML-Spezifikation ausführen (siehe Dokument der Leitstelle Freiburg -> Curl-Skript).
 
-### Wie kann ich das AML-Zertikat in ein pem-Zertifikat umwandeln?
-```$ sudo openssl pkcs12 -in zertifikatsdatei_alt.p12 -out zertifikatsdatei_neu.pem -nodes```
+### Wie kann ich das AML-Zertifikat in ein pem-Zertifikat umwandeln und dann aufteilen?
+1. ```$ sudo openssl pkcs12 -in zertifikatsdatei_alt.p12 -out zertifikatsdatei_neu.pem -nodes```
+2. https://serverfault.com/a/676968
 
 ### Die PHP-Webseite zeigt nichts an, wass kann ich tun?
 Zunächst sollten Sie die PHP-Log-Dateien prüfen, bzw. aktivieren (siehe: [Where are the apache and php log files?](https://askubuntu.com/questions/14763/where-are-the-apache-and-php-log-files)).
@@ -72,7 +73,7 @@ Dies erfolgt aktuell über einen Paramater beim aufrufen der Webseite http://ip-
 
 ```$curl_sslkey = "/var/notrufdaten-ssl.pem";``` // Speicherort des notwendigen Zertifkats
 
-```$curl_sslkeypasswd = "1234567890";``` // SSL-Key
+```$curl_sslkeypasswd = "1234567890";``` // SSL-Passwort (wird vom AML-Betreiber mitgeteilt)
 
 ```$curl_cainfo = "/var/ca-certificates.crt";``` // lokales CA-Zertifikat des Linux-Systems
 
