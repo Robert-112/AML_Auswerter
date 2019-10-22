@@ -1,5 +1,5 @@
 # AML-Decoder
-Aktualisiert am 21.10.2019
+Readme und PHP-Version am 22.10.2019 aktualisiert
 
 ## Beschreibung
 Mit dieser Anwendung können AML-Daten ([Advanced Mobile Location)](https://de.wikipedia.org/wiki/Advanced_Mobile_Location) angefragt und verarbeitet werden. Zur Abfrage der Daten sind Zugangsdaten notwendig, die nur an 112-Leitstellen vergeben werden.
@@ -50,12 +50,32 @@ Das automatische Abrufen der Daten erfolgt über eine Auswertung der Notrufnumme
 Auf dem Server den Testbefehl der AML-Spezifikation ausführen (siehe Dokument der Leitstelle Freiburg -> Curl-Skript).
 
 ### Wie kann ich das AML-Zertifikat in ein pem-Zertifikat umwandeln und dann aufteilen?
-1. ```$ sudo openssl pkcs12 -in zertifikatsdatei_alt.p12 -out zertifikatsdatei_neu.pem -nodes```
-2. https://serverfault.com/a/676968
+
+1. Zertifkat Umwandelt:
+
+ ```$ sudo openssl pkcs12 -in zertifikatsdatei_alt.p12 -out zertifikatsdatei_neu.pem -nodes```
+
+2. Key aus Zertifikat erhalten:
+
+ ```$ sudo openssl pkey -in zertifikatsdatei_neu.pem -out zertifikatsdatei_neu-key.pem```
 
 ### Die PHP-Webseite zeigt nichts an, wass kann ich tun?
+
+1. Sind alle notwendigen Erweiterungen für den Webserver installiert?
+
+PHP, Curl etc. 
+(oftmals fehlt php-curl ```$sudo apt-get install php-curl```)
+
+2. Was sagen die Log-Dateien?
+
 Zunächst sollten Sie die PHP-Log-Dateien prüfen, bzw. aktivieren (siehe: [Where are the apache and php log files?](https://askubuntu.com/questions/14763/where-are-the-apache-and-php-log-files)).
-Außerdem sollten Sie prüfen, ob das Zertifkat durch den Webserver lesbar ist. Testweise kann die Berechtigung für das Zertifkat angepasst werden:
+
+Unter Ubuntu finden sich die Log-Dateien unter ```/var/log/apache/access.log```
+
+3. Sind die Zertifkate in Ordnung?
+
+Sind die Zertifkate richtig umgewandelt? (siehe oben)
+Sind die Zertifkate durch den Webserver lesbar? Testweise kann die Berechtigung für das Zertifkat angepasst werden:
 
 ```$ sudo chmod 777 zertifkat.pem```
 
@@ -71,15 +91,15 @@ Dies erfolgt aktuell über einen Paramater beim aufrufen der Webseite http://ip-
 
 ```$curl_sslcert = "/var/notrufdaten-zertifikat.pem";``` // Speicherort des notwendigen Zertifkats
 
-```$curl_sslkey = "/var/notrufdaten-ssl.pem";``` // Speicherort des notwendigen Zertifkats
+```$curl_sslkey = "/var/notrufdaten-zertifikat-ssl.pem";``` // Speicherort des notwendigen Zertifkats
 
 ```$curl_sslkeypasswd = "1234567890";``` // SSL-Passwort (wird vom AML-Betreiber mitgeteilt)
 
-```$curl_cainfo = "/var/ca-certificates.crt";``` // lokales CA-Zertifikat des Linux-Systems
+```$curl_cainfo = "/etc/ssl/certs/ca-certificates.crt";``` // lokales CA-Zertifikat des Linux-Systems
 
 ```$curl_userpwd = "benutzer:passwort";``` // Benutzer und Passwort für mit : getrennt
 
-```$tile_layer = "https://a.tile.openstreetmap.de/${z}/${x}/${y}.png";``` // Eigener Tile-Server für Kartendarstellung
+```$tile_layer = "https://a.tile.openstreetmap.de/{z}/{x}/{y}.png";``` // Eigener Tile-Server für Kartendarstellung
 
 ## Beispiel des automatischen Abrufs (NodeJS)
 ```
