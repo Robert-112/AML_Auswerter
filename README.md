@@ -51,7 +51,7 @@ Auf dem Server den Testbefehl der AML-Spezifikation ausführen (siehe Dokument d
 
 ### Wie kann ich das AML-Zertifikat in ein pem-Zertifikat umwandeln und dann aufteilen?
 
-1. Zertifkat Umwandelt:
+1. Zertifkat umwandeln:
 
  ```$ sudo openssl pkcs12 -in zertifikatsdatei_alt.p12 -out zertifikatsdatei_neu.pem -nodes```
 
@@ -72,7 +72,7 @@ Zunächst sollten Sie die PHP-Log-Dateien prüfen, bzw. aktivieren (siehe: [Wher
 
 Unter Ubuntu finden sich die Log-Dateien unter ```/var/log/apache/access.log```
 
-3. Sind die Zertifkate in Ordnung?
+3. Sind die Zertifkate OK?
 
 Sind die Zertifkate richtig umgewandelt? (siehe oben)
 Sind die Zertifkate durch den Webserver lesbar? Testweise kann die Berechtigung für das Zertifkat angepasst werden:
