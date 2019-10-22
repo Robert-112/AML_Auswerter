@@ -42,13 +42,17 @@
             curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
             curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
             // Daten auswerten
+            error_msg = "Curl-Fehler";
             $response = curl_exec($ch);
+            if (curl_errno($ch)) {
+                $error_msg = curl_error($ch);
+            }
             curl_close($ch);
             // Fehlermeldungen erstellen
             $text="";
             // wenn keine Rückmeldung, Fehler ausgeben
             if ($response == "") { 
-                $text  .= "Fehler. Der Ortungsserver wurde nicht erreicht<br><br>";  
+                $text  .= "Der Ortungsserver wurde nicht erreicht<br>Fehler: ".$error_msg."<br><br>";  
             };
             // Wenn nicht 'ok', dann Fehler ausgeben
             if ($response == '[{"status":"no aml data"}]') { 
@@ -106,7 +110,7 @@
             };
             // Basemaps hinzufügen
             L.control.layers(basemaps).addTo(mymap);
-            basemaps.Webatlas.addTo(mymap);
+            basemaps.Openstreetmap_Intern.addTo(mymap);
             // Pfeil hinzufügen, sofern eine Geschwindigkeit mitgeliefert wird
             <?php
                 if (round($obj[0]->{'location_speed'}, 0) > 5) { 
