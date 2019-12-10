@@ -42,7 +42,7 @@
             curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
             curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
             // Daten auswerten
-            error_msg = "Curl-Fehler";
+            $error_msg = "Curl-Fehler";
             $response = curl_exec($ch);
             if (curl_errno($ch)) {
                 $error_msg = curl_error($ch);
